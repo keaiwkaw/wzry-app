@@ -5,6 +5,8 @@ app.use(require("cors")());
 app.use(express.json());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
+app.set("secret", "gdhagyd");
+
 require("./plugins/mongoose.js")(app);
 require("./routes/admin")(app);
 

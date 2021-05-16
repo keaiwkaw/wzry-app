@@ -3,7 +3,7 @@
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu
         router
-        :default-openeds="['3']"
+        :default-opends="['3']"
         unique-opened
         :default-active="$route.path"
       >
@@ -48,8 +48,8 @@
           </el-menu-item-group>
           <el-menu-item-group>
             <template slot="title">管理员</template>
-            <el-menu-item index="/admin_user/create">新建管理员</el-menu-item>
-            <el-menu-item index="/admin_user/list">分类列表</el-menu-item>
+            <el-menu-item index="/admin_users/create">新建管理员</el-menu-item>
+            <el-menu-item index="/admin_users/list">分类列表</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

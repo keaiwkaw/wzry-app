@@ -8,7 +8,7 @@ const schema = new mongoose.Schema({
     type: String,
     select: false,
     set(val) {
-      return require("bcrypt").hasSync(val, 11);
+      return require("bcrypt").hashSync(val, 11);
     },
   },
 });

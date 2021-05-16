@@ -24,7 +24,6 @@ export default {
   data() {
     return {
       model: {},
-      parent: [],
     };
   },
   methods: {
@@ -45,13 +44,9 @@ export default {
       let res = await this.$http.get("rest/admin_users/" + this.id);
       this.model = res.data;
     },
-    async fetchParent() {
-      let res = await this.$http.get("rest/admin_users");
-      this.parent = res.data;
-    },
+
   },
   created() {
-    this.fetchParent();
     this.id && this.fetch();
   },
 };
