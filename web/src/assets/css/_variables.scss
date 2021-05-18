@@ -1,0 +1,92 @@
+
+$colors :(
+  "primary":#db9e3f,
+  "white":#FFF,
+  "light":#f9f9f9,
+  "light-1":#d4d9de,
+  "grey":#999,
+  "grey-1":#666,
+  "dark-1":#343440,
+  "dark":#222,
+  "black":#000
+  );
+  $base-font-size:1rem;
+  $font-size:(
+    "xxs":0.6154,
+    'xs':0.7692,
+    'sm':0.9231,
+    'md':1,
+    'lg':1.0769
+  );
+  $jc-flex:(
+    start:start,
+    end:end,
+    center:center,
+    between:space-between,
+    around:space-around
+  );
+  $ai-flex:(
+    start:start,
+    end:end,
+    center:center,
+    stretch:stretch
+  );
+@each $colorKey,$colorVal in $colors {
+  .text-#{$colorKey}{
+    color: $colorVal;
+  }
+  .bg-#{$colorKey}{
+    background-color: $colorVal;
+  }
+}
+@each $var in (left,center,right) {
+  .text-#{$var}{
+    text-align: $var;
+  }
+}
+@each $fontSK,$fontSV in $font-size {
+  .fs-#{$fontSK}{
+    font-size: $base-font-size*$fontSV;
+  }
+}
+@each $jcKey,$jcVal in $jc-flex {
+  .jc-#{$jcKey}{
+    justify-content: $jcVal;
+  }
+}
+
+@each $aiKey,$aiVal in $ai-flex {
+  .ai-#{$aiKey}{
+    align-items: $aiVal;
+  }
+}
+$spacing-base-size:1rem;
+$spacing-type:(m:margin,p:padding);
+$spacing-direction:(t:top,r:right,b:bottom,l:left);
+$spacing-size:(0:0,1:0.25,2:0.5,3:1,4:1.5,5:3);
+@each $typeKey,$typeVal in $spacing-type {
+  @each $sizeKey,$sizeVal in $spacing-size {
+    .#{$typeKey}-#{$sizeKey}{
+      #{$typeVal}:$spacing-base-size*$sizeVal;
+    }
+  }
+  @each $sizeKey,$sizeVal in $spacing-size {
+    .#{$typeKey}x-#{$sizeKey}{
+      #{$typeVal}-left:$spacing-base-size*$sizeVal;
+      #{$typeVal}-right:$spacing-base-size*$sizeVal;
+    }
+    .#{$typeKey}y-#{$sizeKey}{
+      #{$typeVal}-top:$spacing-base-size*$sizeVal;
+      #{$typeVal}-bottom:$spacing-base-size*$sizeVal;
+    }
+  }
+  @each $directionKey,$directionVal in $spacing-direction {
+    @each $sizeKey,$sizeVal in $spacing-size {
+      .#{$typeKey}#{$directionKey}-#{$sizeKey}{
+        #{$typeVal}-#{$directionVal}:$spacing-base-size*$sizeVal;
+      }
+    }
+  }
+}
+$border-color:map-get($colors,'light-1');
+$primary-color:map-get($colors,'primary');

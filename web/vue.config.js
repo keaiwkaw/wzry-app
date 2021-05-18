@@ -8,5 +8,6 @@ module.exports = {
         views: "@/views"
       }
     }
-  }
+  },
+  lintOnSave:false //关闭eslint检查
 };
