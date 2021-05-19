@@ -9,8 +9,7 @@
     </div>
     <div class="card-body">
       <Card-list :categories="categories">
-        <template v-slot:items="category">
-           <div>我是一个小插槽{{category}}</div>
+        <template v-slot:items="{ category }">
           <router-link
             tag="div"
             :to="`/articles/${news._id}`"
@@ -18,7 +17,6 @@
             v-for="(news, i) in category.newsList"
             :key="i"
           >
-         
             <span class="text-info">[{{ news.categoryName }}]</span>
             <span class="px-2">|</span>
             <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{
