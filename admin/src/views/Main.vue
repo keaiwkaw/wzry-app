@@ -5,7 +5,7 @@
         router
         :default-opends="['3']"
         unique-opened
-        :default-active="$route.path==='/'?'/items/create':$route.path"
+        :default-active="$route.path === '/' ? '/items/create' : $route.path"
       >
         <el-submenu index="1">
           <template slot="title"
@@ -68,7 +68,7 @@
       </el-header>
 
       <el-main>
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
       </el-main>
     </el-container>
   </el-container>

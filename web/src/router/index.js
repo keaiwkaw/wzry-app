@@ -1,10 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Main from "views/Main.vue";
-import Home from "views/Home.vue";
-import Competition from "views/Competition";
-import Strategy from "views/Strategy";
-import IPgame from "views/IPgame";
+import Home from "views/Home";
 Vue.use(VueRouter);
 
 const routes = [
@@ -12,12 +9,7 @@ const routes = [
     path: "/",
     name: "main",
     component: Main,
-    children: [
-      { path: "/", name: "home", component: Home },
-      { path: "/", name: "competition", component: Competition },
-      { path: "/", name: "strategy", component: Strategy },
-      { path: "/", name: "IPgame", component: IPgame }
-    ]
+    children: [{ path: "/", name: "home", component: Home }]
   }
 ];
 

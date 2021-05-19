@@ -9,6 +9,7 @@ app.set("secret", "gdhagyd");
 
 require("./plugins/mongoose.js")(app);
 require("./routes/admin")(app);
+require("./routes/web")(app);
 
 app.listen(3000, () => {
   console.log("http://localhost:3000/");

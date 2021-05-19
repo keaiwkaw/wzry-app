@@ -3,11 +3,11 @@
     <h1>{{ id ? "编辑" : "新建" }}分类</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="所属分类">
-        <el-select v-model="model.categories">
+        <el-select v-model="model.categories" multiple>
           <el-option
             v-for="item in categories"
             :key="item._id"
-            :label="item.title"
+            :label="item.name"
             :value="item._id"
           >
           </el-option>
@@ -70,14 +70,15 @@ export default {
     async fetch() {
       let res = await this.$http.get("rest/articles/" + this.id);
       this.model = res.data;
+      console.log(this.model);
     },
-    async fetchParent() {
-      let res = await this.$http.get("rest/articles");
+    async fetchCategories() {
+      let res = await this.$http.get("rest/categories");
       this.categories = res.data;
     },
   },
   created() {
-    this.fetchParent();
+    this.fetchCategories();
     this.id && this.fetch();
   },
 };

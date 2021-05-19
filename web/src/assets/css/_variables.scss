@@ -1,14 +1,20 @@
 
 $colors :(
-  "primary":#db9e3f,
-  "white":#FFF,
-  "light":#f9f9f9,
-  "light-1":#d4d9de,
-  "grey":#999,
-  "grey-1":#666,
-  "dark-1":#343440,
-  "dark":#222,
-  "black":#000
+  'primary': #db9e3f,
+  'info': #4b67af,
+  'danger': #791a15,
+  'blue-1': #1f3695,
+  'blue': #4394e4,
+  'white': #fff,
+  'white-1': #fcfcfc,
+  'white-2': #eceef0,
+  'light': #f9f9f9,
+  'light-1': #d4d9de,
+  'grey': #999,
+  'grey-1': #666,
+  'dark-1': #343440,
+  'dark': #222,
+  'black': #000,
   );
   $base-font-size:1rem;
   $font-size:(

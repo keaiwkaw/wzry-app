@@ -14,4 +14,9 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
 </style>
