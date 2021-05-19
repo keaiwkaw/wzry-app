@@ -32,6 +32,12 @@ a{
   flex-wrap: wrap;
 }
 
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 
 .btn{

@@ -27,6 +27,10 @@ export default {
         pagination: {
           el: ".pagination-home",
         },
+        autoplay: {
+          disableOnInteraction: false,
+          delay: 1000,
+        },
       },
     };
   },

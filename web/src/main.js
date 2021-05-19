@@ -9,9 +9,8 @@ import "./assets/iconfont/iconfont.css";
 import http from "./request/http";
 import VueAwesomeSwiper from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
-Vue.prototype.$http = http;
 Vue.config.productionTip = false;
-
+Vue.prototype.$http = http;
 Vue.use(ElementUI);
 Vue.use(VueAwesomeSwiper);
 new Vue({

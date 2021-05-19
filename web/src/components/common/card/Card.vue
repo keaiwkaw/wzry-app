@@ -14,8 +14,8 @@
             tag="div"
             :to="`/articles/${news._id}`"
             class="py-2 fs-lg d-flex"
-            v-for="(news, i) in category.newsList"
-            :key="i"
+            v-for="(news, idx) in category.newsList"
+            :key="idx"
           >
             <span class="text-info">[{{ news.categoryName }}]</span>
             <span class="px-2">|</span>
@@ -58,9 +58,7 @@ export default {
   data() {
     return {};
   },
-  created() {
-    console.log(this.categories);
-  },
+  created() {},
 };
 </script>
 
