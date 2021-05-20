@@ -8,38 +8,15 @@
       </div>
     </div>
     <div class="card-body">
-      <Card-list :categories="categories">
-        <template v-slot:items="{ category }">
-          <router-link
-            tag="div"
-            :to="`/articles/${news._id}`"
-            class="py-2 fs-lg d-flex"
-            v-for="(news, idx) in category.newsList"
-            :key="idx"
-          >
-            <span class="text-info">[{{ news.categoryName }}]</span>
-            <span class="px-2">|</span>
-            <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{
-              news.title
-            }}</span>
-            <span class="text-grey-1 fs-sm">{{ news.createdAt | date }}</span>
-          </router-link>
-        </template>
-      </Card-list>
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
-import dayjs from "dayjs";
-import Tab from "components/common/Tab";
-import CardList from "components/common/card/CardList";
+
 export default {
-  filters: {
-    date(val) {
-      return dayjs(val).format("MM/DD");
-    },
-  },
+
   props: {
     icon: {
       require: true,
@@ -49,12 +26,8 @@ export default {
       require: true,
       type: String,
     },
-    categories: { type: Array, required: true },
   },
-  components: {
-    Tab,
-    CardList,
-  },
+  components: {},
   data() {
     return {};
   },

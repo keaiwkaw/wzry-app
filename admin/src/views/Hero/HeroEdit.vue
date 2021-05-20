@@ -120,9 +120,7 @@
                 <el-input type="textarea" v-model="item.tip"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button
-                  type="danger"
-                  @click="model.skills.splice(i,1)"
+                <el-button type="danger" @click="model.skills.splice(i, 1)"
                   >删除</el-button
                 >
               </el-form-item>
@@ -182,7 +180,7 @@ export default {
     },
     async fetch() {
       let res = await this.$http.get("rest/heroes/" + this.id);
-      this.model = res.data;
+      this.model = Object.assign(this.model, res.data);
     },
     async fetchHeroCategories() {
       let res = await this.$http.get("rest/categories");
@@ -206,5 +204,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
