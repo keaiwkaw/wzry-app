@@ -14,10 +14,27 @@
             <el-upload
               class="avatar-uploader"
               :action="$http.defaults.baseURL + '/upload'"
+              :headers="getAuthHeaders()"
               :show-file-list="false"
               :on-success="afterUpload"
             >
               <img v-if="model.avatar" :src="model.avatar" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="banner">
+            <el-upload
+              class="avatar-uploader"
+              :action="$http.defaults.baseURL + '/upload'"
+              :headers="getAuthHeaders()"
+              :show-file-list="false"
+              :on-success="
+                (res) => {
+                  $set(model, 'banner', res.url);
+                }
+              "
+            >
+              <img v-if="model.banner" :src="model.banner" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -102,10 +119,11 @@
                 <el-upload
                   class="avatar-uploader"
                   :action="$http.defaults.baseURL + '/upload'"
+                  :headers="getAuthHeaders()"
                   :show-file-list="false"
                   :on-success="
                     (res) => {
-                      $set(item.icon, 'icon', res);
+                      $set(item, 'icon', res.url);
                     }
                   "
                 >
@@ -114,13 +132,46 @@
                 </el-upload>
               </el-form-item>
               <el-form-item label="描述">
-                <el-input type="textarea" v-model="item.description"></el-input>
+                <el-input v-model="item.description" type="textarea"></el-input>
+              </el-form-item>
+              <el-form-item label="冷却值">
+                <el-input v-model="item.delay"></el-input>
+              </el-form-item>
+              <el-form-item label="消耗">
+                <el-input v-model="item.cost"></el-input>
               </el-form-item>
               <el-form-item label="小提示">
                 <el-input type="textarea" v-model="item.tip"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="danger" @click="model.skills.splice(i, 1)"
+                  >删除</el-button
+                >
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+        <el-tab-pane label="最佳搭档" name="partners">
+          <el-button @click="model.partners.push({})">
+            <i class="el-icon-plus" size="small">添加英雄</i>
+          </el-button>
+          <el-row type="flex" style="flex-wrap: wrap">
+            <el-col :md="12" v-for="(item, idx) in model.partners" :key="idx">
+              <el-form-item label="英雄">
+                <el-select v-model="item.hero" filterable>
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :value="hero._id"
+                    :label="hero.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="描述">
+                <el-input v-model="item.description" type="textarea"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="danger" @click="model.partners.splice(i, 1)"
                   >删除</el-button
                 >
               </el-form-item>
@@ -157,6 +208,7 @@ export default {
           attack: 0,
           survival: 0,
         },
+        partners: [],
         skills: [],
       },
     };
@@ -196,6 +248,7 @@ export default {
     },
   },
   created() {
+    this.fetchHeroes();
     this.fetchItems();
     this.fetchHeroCategories();
     this.id && this.fetch();
@@ -204,4 +257,6 @@ export default {
 </script>
 
 <style scoped>
+img {
+}
 </style>

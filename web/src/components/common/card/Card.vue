@@ -1,10 +1,17 @@
 <template>
   <div class="card bg-white p-3 mt-3">
-    <div class="card-header d-flex px-2 py-2 ai-center">
-      <div class="d-flex flex-1 px-2">
+    <div
+      class="card-header d-flex  ai-center pb-2x" 
+      :class="{ 'border-bottom': !plain, 'pd-3': !plain }"
+    >
+      <div class="d-flex flex-1 pb-3">
         <i class="iconfont mr-2 d-flex ai-center" :class="icon"></i>
-        <div class="text-black fs-lg flex-1">{{ title }}</div>
-        <i class="iconfont mr-2 d-flex ai-center" :class="icon"></i>
+        <div class="text-black fs-lg flex-1" :class="{ 'fw': plain }">{{ title }}</div>
+        <i
+          class="iconfont mr-2 d-flex ai-center"
+          :class="icon"
+          v-if="!plain"
+        ></i>
       </div>
     </div>
     <div class="card-body">
@@ -14,9 +21,7 @@
 </template>
 
 <script>
-
 export default {
-
   props: {
     icon: {
       require: true,
@@ -25,6 +30,9 @@ export default {
     title: {
       require: true,
       type: String,
+    },
+    plain: {
+      type: Boolean,
     },
   },
   components: {},
@@ -39,6 +47,9 @@ export default {
 @import "../../../assets/css/variables";
 .card {
   border-bottom: 1px solid $border-color;
+}
+.fw{
+  font-weight: 600;
 }
 </style>
 

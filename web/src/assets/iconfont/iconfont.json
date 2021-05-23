@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "187706",
+      "name": "技巧秘籍",
+      "font_class": "jiqiaomiji",
+      "unicode": "f0040",
+      "unicode_decimal": 983104
+    },
+    {
+      "icon_id": "337745",
+      "name": "技巧",
+      "font_class": "icon",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "1421881",
+      "name": "关系",
+      "font_class": "guanxi",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "4106152",
+      "name": "图片-圆",
+      "font_class": "image-circle",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
       "icon_id": "6654507",
       "name": "card-hero",
       "font_class": "card-hero",
@@ -13,11 +41,46 @@
       "unicode_decimal": 58911
     },
     {
+      "icon_id": "7861101",
+      "name": "icon-back",
+      "font_class": "back",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "9381995",
+      "name": "video",
+      "font_class": "video",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "9676917",
+      "name": "处置思路",
+      "font_class": "chuzhisilu",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "12614698",
+      "name": "装备-03",
+      "font_class": "zhuangbei-",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
       "icon_id": "15536204",
       "name": "Menu",
       "font_class": "Menu",
       "unicode": "e69e",
       "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "18959420",
+      "name": "down",
+      "font_class": "down3",
+      "unicode": "e507",
+      "unicode_decimal": 58631
     }
   ]
 }

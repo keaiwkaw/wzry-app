@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Main from "views/Main.vue";
 import Home from "views/Home";
 import ArtDetil from "views/ArticleDetail";
+import HeroDetail from "views/HeroDetail";
 Vue.use(VueRouter);
 
 const routes = [
@@ -14,6 +15,12 @@ const routes = [
       { path: "/", name: "home", component: Home },
       { path: "/articles/:id", name: "artDetil", component: ArtDetil, props: true }
     ]
+  },
+  {
+    path: "/heroes/:id",
+    name: "HeroDetail",
+    component: HeroDetail,
+    props: true
   }
 ];
 

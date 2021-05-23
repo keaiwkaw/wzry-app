@@ -6,14 +6,18 @@ const schema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  banner: {
+    type: String,
+  },
+
   title: {
     type: String,
   },
   categories: [
     {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "Categroy",
-    },
+      ref: "Category",
+    }
   ],
   scores: {
     difficult: {type: Number},
@@ -27,6 +31,8 @@ const schema = new mongoose.Schema({
       name: {type: String},
       description: {type: String},
       tip: {type: String},
+      delay: {type: String},
+      cost: {type: String},
     },
   ],
   items1: [

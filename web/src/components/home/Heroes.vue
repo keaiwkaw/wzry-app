@@ -36,6 +36,7 @@ export default {
     async fechheroesCats() {
       let res = await this.$http.get("heroes/list");
       this.heroesCats = res.data;
+      console.log(this.heroesCats);
     },
   },
   created() {

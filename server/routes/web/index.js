@@ -1,9 +1,11 @@
 module.exports = (app) => {
   const router = require("express").Router();
   const mongoose = require("mongoose");
-  const Article = mongoose.model("Article");
-  const Category = mongoose.model("Category");
-  const Hero = mongoose.model("Hero");
+  let Category = require("../../models/Category");
+  let Article = require("../../models/Article");
+  let Hero = require("../../models/Hero");
+  // let Video = require('../../models/Video')
+  let Item = require("../../models/Item");
   router.get("/news/init", async (req, res) => {
     let newsTitle = [
       "老亚瑟的答疑时间：甄姬-冰雪圆舞曲优化设计稿、青白蛇重做后续计划公布",
@@ -37,7 +39,7 @@ module.exports = (app) => {
       .lean();
     //不带mogo里面的数据、
     const newsList = newsTitle.map((title) => {
-      const catsRandom = cats.slice(0).sort((a, b) => Math.random - 0.5);
+      const catsRandom = cats.slice(0).sort((a, b) => Math.random() - 0.5);
       return {
         title,
         categories: catsRandom.slice(0, 2),
@@ -852,20 +854,18 @@ module.exports = (app) => {
         ],
       },
     ];
-    for (let cat of rawData) {
-      if (cat.name !== "热门") {
-        // 找到当前分类在数据库中对应的数据
-        const category = await Category.findOne({
-          name: cat.name,
-        });
-        cat.heroes = cat.heroes.map((hero) => {
-          hero.categories = [category];
-          return hero;
-        });
-        // 录入英雄
-        await Hero.insertMany(cat.heroes);
-      }
+    for (const cat of rawData) {
+      let category = await Category.findOne({
+        name: cat.name,
+      });
+
+      cat.heroes = cat.heroes.map((hero) => {
+        hero.categories = [category];
+        return hero;
+      });
+      await Hero.insertMany(cat.heroes);
     }
+
     res.send(await Hero.find());
   });
 
@@ -938,12 +938,7 @@ module.exports = (app) => {
     const subCats = cats.map((v) => v._id);
     cats.unshift({
       name: "热门",
-      heroList: await Hero.find()
-        .where({
-          categories: {$in: subCats},
-        })
-        .limit(10)
-        .lean(),
+      heroList: await Hero.aggregate( [ { $sample: { size: 10 } } ] )
     });
 
     res.send(cats);
@@ -958,6 +953,13 @@ module.exports = (app) => {
       .limit(2);
     res.send(resData);
   });
+
+  router.get("/heroes/:id", async (req, res) => {
+    const data = await Hero.findById(req.params.id).populate(
+      "items1 items2 partners.hero categories"
+    );
+    res.send(data);
+  });
+
   app.use("/web/api", router);
 };
-let arr = [{name: "田浩伟"}, 1, 2, 3];
