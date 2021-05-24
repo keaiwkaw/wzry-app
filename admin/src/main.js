@@ -9,6 +9,11 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = http;
 Vue.use(ElementUI);
 Vue.mixin({
+  computed: {
+    uploadUrl() {
+      return this.$http.defaults.baseURL + "/upload";
+    },
+  },
   methods: {
     getAuthHeaders() {
       return {

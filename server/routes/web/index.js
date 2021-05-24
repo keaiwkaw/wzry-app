@@ -50,6 +50,57 @@ module.exports = (app) => {
     res.send(newsList);
   });
 
+  router.get("/news/list", async (req, res) => {
+    const parent = await Category.findOne({
+      name: "新闻分类",
+    });
+    //   .populate({
+    //     path: "childern",
+    //     populate: {
+    //       path: "newList",
+    //     },
+    //   })
+    //   .lean();
+
+    //聚合查询
+    const cats = await Category.aggregate([
+      {$match: {parent: parent._id}},
+      {
+        $lookup: {
+          from: "article",
+          localField: "_id",
+          foreignField: "categories",
+          as: "newsList",
+        },
+      },
+      {
+        $addFields: {
+          newsList: {$slice: ["$newsList", 5]},
+        },
+      },
+    ]);
+    const subCats = cats.map((v) => v._id);
+    cats.unshift({
+      name: "热门",
+      newsList: await Article.find()
+        .where({
+          categories: {$in: subCats},
+        })
+        .populate("categories")
+        .limit(5)
+        .lean(),
+    });
+    cats.map((cat) => {
+      cat.newsList.map((news) => {
+        news.categoryName =
+          cat.name === "热门" ? news.categories[0].name : cat.name;
+        return news;
+      });
+      return cat;
+    });
+    res.send(cats);
+  });
+  //初始化英雄
   router.get("/heroes/init", async (req, res) => {
     await Hero.deleteMany({});
     const rawData = [
@@ -854,7 +905,9 @@ module.exports = (app) => {
         ],
       },
     ];
+
     for (const cat of rawData) {
+      if (cat.name == "热门") continue;
       let category = await Category.findOne({
         name: cat.name,
       });
@@ -865,61 +918,9 @@ module.exports = (app) => {
       });
       await Hero.insertMany(cat.heroes);
     }
-
     res.send(await Hero.find());
   });
-
-  router.get("/news/list", async (req, res) => {
-    const parent = await Category.findOne({
-      name: "新闻分类",
-    });
-    //   .populate({
-    //     path: "childern",
-    //     populate: {
-    //       path: "newList",
-    //     },
-    //   })
-    //   .lean();
-
-    //聚合查询
-    const cats = await Category.aggregate([
-      {$match: {parent: parent._id}},
-      {
-        $lookup: {
-          from: "article",
-          localField: "_id",
-          foreignField: "categories",
-          as: "newsList",
-        },
-      },
-      {
-        $addFields: {
-          newsList: {$slice: ["$newsList", 5]},
-        },
-      },
-    ]);
-    const subCats = cats.map((v) => v._id);
-    cats.unshift({
-      name: "热门",
-      newsList: await Article.find()
-        .where({
-          categories: {$in: subCats},
-        })
-        .populate("categories")
-        .limit(5)
-        .lean(),
-    });
-    cats.map((cat) => {
-      cat.newsList.map((news) => {
-        news.categoryName =
-          cat.name === "热门" ? news.categories[0].name : cat.name;
-        return news;
-      });
-      return cat;
-    });
-    res.send(cats);
-  });
-
+  //获取英雄列表
   router.get("/heroes/list", async (req, res) => {
     const parent = await Category.findOne({
       name: "英雄分类",
@@ -935,15 +936,18 @@ module.exports = (app) => {
         },
       },
     ]);
-    const subCats = cats.map((v) => v._id);
+    let subCats = cats.map((v) => v._id);
     cats.unshift({
       name: "热门",
-      heroList: await Hero.aggregate( [ { $sample: { size: 10 } } ] )
+      heroList: await Hero.find()
+        .where({
+          categories: {$in: subCats},
+        })
+        .limit(10)
+        .lean(),
     });
-
     res.send(cats);
   });
-
   router.get("/articles/:id", async (req, res) => {
     let resData = await Article.findById(req.params.id);
     resData.related = await Article.find()

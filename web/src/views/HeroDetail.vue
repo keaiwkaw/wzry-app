@@ -66,7 +66,7 @@
                     class="icon"
                     @click="currentSkillIndex = i"
                     :class="{ active: currentSkillIndex === i }"
-                    :src="item.icon"
+                    v-lazy="item.icon"
                     v-for="(item, i) in model.skills"
                     :key="item.name"
                   />
@@ -97,7 +97,7 @@
               <div class="fs-xl">顺风出装</div>
               <div class="d-flex jc-around text-center mt-3">
                 <div v-for="item in model.items1" :key="item.name">
-                  <img :src="item.icon" class="icon" />
+                  <img v-lazy="item.icon" class="icon" />
                   <div class="fs-xs">{{ item.name }}</div>
                 </div>
               </div>
@@ -105,7 +105,7 @@
               <div class="fs-xl mt-3">逆风出装</div>
               <div class="d-flex jc-around text-center mt-3">
                 <div v-for="item in model.items2" :key="item.name">
-                  <img :src="item.icon" class="icon" />
+                  <img v-lazy="item.icon" class="icon" />
                   <div class="fs-xs">{{ item.name }}</div>
                 </div>
               </div>
@@ -126,7 +126,7 @@
                 :key="item.name"
                 class="d-flex pt-3"
               >
-                <img :src="item.hero.avatar" alt="" height="50" />
+                <img v-lazy="item.hero.avatar" alt="" height="50" />
                 <p class="flex-1 m-0 ml-3">
                   {{ item.description }}
                 </p>
@@ -158,7 +158,6 @@ export default {
     async fetch() {
       let res = await this.$http.get("heroes/" + this.id);
       this.model = res.data;
-      console.log(this.model);
     },
   },
   computed: {

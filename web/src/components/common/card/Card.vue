@@ -1,17 +1,15 @@
 <template>
   <div class="card bg-white p-3 mt-3">
     <div
-      class="card-header d-flex  ai-center pb-2x" 
+      class="card-header d-flex ai-center pb-2x"
       :class="{ 'border-bottom': !plain, 'pd-3': !plain }"
     >
       <div class="d-flex flex-1 pb-3">
         <i class="iconfont mr-2 d-flex ai-center" :class="icon"></i>
-        <div class="text-black fs-lg flex-1" :class="{ 'fw': plain }">{{ title }}</div>
-        <i
-          class="iconfont mr-2 d-flex ai-center"
-          :class="icon"
-          v-if="!plain"
-        ></i>
+        <div class="text-black fs-lg flex-1" :class="{ fw: plain }">
+          {{ title }}
+        </div>
+        <i class="iconfont mr-2 d-flex ai-center" v-if="!plain">...</i>
       </div>
     </div>
     <div class="card-body">
@@ -48,7 +46,7 @@ export default {
 .card {
   border-bottom: 1px solid $border-color;
 }
-.fw{
+.fw {
   font-weight: 600;
 }
 </style>

@@ -4,6 +4,12 @@
     <nav-icon />
     <news />
     <heroes />
+    <m-card-list
+      class="news-card"
+      :icon="'icon-Menu'"
+      :title="'英雄列表'"
+    >
+    </m-card-list>
   </div>
 </template>
 
